@@ -2,7 +2,7 @@ const fs = require("node:fs/promises");
 const path = require("path");
 const crypto = require("node:crypto");
 
-const contactsPath = path.join(__dirname, "contacts.json");
+const contactsPath = path.join(__dirname, "db", "contacts.json");
 
 async function listContacts() {
   const contacts = await fs.readFile(contactsPath);
@@ -40,7 +40,7 @@ async function addContact(name, email, phone) {
     id: crypto.randomUUID(),
   };
   contacts.push(newContact);
-  await fs.writeFile(contacts);
+  await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
   return newContact;
   // ...твій код. Повертає об'єкт доданого контакту (з id).
 }
