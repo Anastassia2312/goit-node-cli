@@ -34,10 +34,10 @@ async function removeContact(contactId) {
 async function addContact(name, email, phone) {
   const contacts = await listContacts();
   const newContact = {
-    name,
-    email,
-    phone,
     id: crypto.randomUUID(),
+    ...name,
+    ...email,
+    ...phone,
   };
   contacts.push(newContact);
   await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
